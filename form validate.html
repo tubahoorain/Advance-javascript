@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <script>
+        function formData() {
+          let a = document.getElementById("n1").value;
+          let b = document.getElementById("n2").value;
+      
+          if (a === "" || b === "") {
+            alert("All fields are mandatory");
+            return false; 
+          }
+          return true; 
+        }
+      </script>
+      
+      <form onsubmit="return formData()" action="dataSubmit.html">
+        Username : <input type="text" id="n1"><br>
+        Password: <input type="password" id="n2"><br>
+        <input type="submit" value="Login">
+      </form>
+      
+      <!-- Key Points:
+
+onsubmit="return formData()" checks whether the function returns true or false.
+
+If it returns false, the form will not be submitted.
+
+.trim() is used to remove extra spaces so that inputs with only spaces are also considered empty. -->
+
+
+</body>
+
+</html>
