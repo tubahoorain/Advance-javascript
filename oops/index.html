@@ -3,9 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bank Account OOP</title>
 </head>
 <body>
     <script src="constructor.js"></script>
+
+    <h2>Bank Account</h2>
+
+  <label>Account Holder Name:</label>
+  <input type="text" id="holderName" placeholder="e.g. John Doe"><br>
+
+  <label>Initial Deposit:</label>
+  <input type="number" id="initialBalance" placeholder="e.g. 1000"><br>
+
+  <button onclick="createAccount()">Create Account</button>
+
+  <hr>
+
+  <div id="accountSection" style="display:none;">
+    <p><strong>Account Holder:</strong> <span id="accHolder"></span></p>
+    <p><strong>Current Balance:</strong> $<span id="accBalance"></span></p>
+
+    <input type="number" id="amount" placeholder="Enter amount">
+    <button onclick="deposit()">Deposit</button>
+    <button onclick="withdraw()">Withdraw</button>
+  </div>
+
+  <script>
+    // BankAccount class
+    class BankAccount {
+      constructor(holderName, balance) {
+        this.holderName = holderName;
+        this.balance = balance;
+      }
+
+      deposit(amount) {
+        if (amount > 0) {
+          this.balance += amount;
+          alert(`Deposited $${amount} successfully.`);
+        } else {
+          alert("Enter a valid amount to deposit.");
+        }
+      }
+
+      withdraw(amount) {
+        if (amount > 0 && amount <= this.balance) {
+          this.balance -= amount;
+          alert(`Withdrew $${amount} successfully.`);
+        } else {
+          alert("Invalid amount or insufficient funds.");
+        }
+      }
+
+      getBalance() {
+        return this.balance;
+      }
+
+      getDetails() {
+        return `Account Holder: ${this.holderName}, Balance: $${this.balance}`;
+      }
+    }
+
+    let myAccount;
+
+    function createAccount() {
+      const name = document.getElementById("holderName").value;
+      const balance = parseFloat(document.getElementById("initialBalance").value);
+
+      if (name && !isNaN(balance) && balance >= 0) {
+        myAccount = new BankAccount(name, balance);
+        document.getElementById("accHolder").innerText = myAccount.holderName;
+        document.getElementById("accBalance").innerText = myAccount.getBalance();
+        document.getElementById("accountSection").style.display = "block";
+      } else {
+        alert("Please enter valid name and initial deposit.");
+      }
+    }
+
+    function deposit() {
+      const amount = parseFloat(document.getElementById("amount").value);
+      myAccount.deposit(amount);
+      document.getElementById("accBalance").innerText = myAccount.getBalance();
+    }
+
+    function withdraw() {
+      const amount = parseFloat(document.getElementById("amount").value);
+      myAccount.withdraw(amount);
+      document.getElementById("accBalance").innerText = myAccount.getBalance();
+    } 
+
+
+
+
+  </script>
+    
 </body>
 </html>
